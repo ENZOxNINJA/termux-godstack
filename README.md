@@ -12,9 +12,25 @@ A **one-stop repository** for all Termux tools, including hacking, security, OSI
 
 ---
 
-## **📥 How to Use**
-### **Clone the Repository (with Submodules)**
-```bash
-git clone --recurse-submodules https://github.com/ENZOxNINJA/termux-godstack.git
-cd termux-godstack
+### **How to Use This Command**
+1. **Open Termux** on your Android device.
+2. **Copy the entire command** above.
+3. **Paste and run** it in Termux.
+
+---
+
+### **What This Command Does**
+1. **Updates and upgrades** Termux packages.
+2. **Clones your `termux-godstack` repository** (or navigates to it if it already exists).
+3. **Creates `README.md`, `.gitignore`, `menu.sh`, and `clone_all.sh`** with the provided content.
+4. **Makes the scripts executable**.
+5. **Runs `clone_all.sh`** to add all Termux tools as submodules.
+6. **Commits and pushes** all files to your GitHub repository.
+
+---
+
+### **After Setup**
+- Run the menu script to start using the tools:
+  ```bash
+  ./menu.sh
 
