@@ -1,6 +1,19 @@
 #!/bin/bash
 
-# List of repositories to clone
+# Clone or navigate to your target repository
+REPO_URL="https://github.com/ENZOxNINJA/termux-godstack.git"
+REPO_DIR="termux-godstack"
+
+if [ ! -d "$REPO_DIR" ]; then
+  echo "Cloning $REPO_URL..."
+  git clone "$REPO_URL" "$REPO_DIR"
+  cd "$REPO_DIR"
+else
+  echo "Repository already exists. Navigating to $REPO_DIR..."
+  cd "$REPO_DIR"
+fi
+
+# List of repositories to add as submodules
 repos=(
   "https://github.com/Gameye98/Lazymux.git"
   "https://github.com/Rajkumrdusad/Tool-X.git"
@@ -16,7 +29,7 @@ repos=(
   "https://github.com/b3-v3r/Hunner.git"
   "https://github.com/H0j3n/BinGoo.git"
   "https://github.com/rajkumardusad/IP-Tracer.git"
-  "https://github.com/An0nUD4Y/blackeye.git"
+  "https://github.com/ENZOxNINJA/blackeye.git"
   "https://github.com/UltimateHackers/Striker.git"
   "https://github.com/htr-tech/MaxPhisher.git"
   "https://github.com/htr-tech/knockmail.git"
@@ -38,14 +51,21 @@ repos=(
   "https://github.com/ivam3/termux-packages.git"
 )
 
-# Clone each repository
+# Add each repository as a submodule
 for repo in "${repos[@]}"; do
-  git clone "$repo"
-  echo "Cloned: $repo"
+  dirname=$(basename "$repo" .git)
+  if [ ! -d "$dirname" ]; then
+    echo "Adding submodule: $repo"
+    git submodule add "$repo" "tools/$dirname"
+  else
+    echo "Submodule $dirname already exists. Skipping..."
+  fi
 done
 
-# Add, commit, and push to your GitHub repository
+# Commit and push to your GitHub repository
+echo "Committing and pushing all submodules..."
 git add .
-git commit -m "Add all Termux tools"
+git commit -m "Add all Termux tools as submodules"
 git push origin main
 
+echo "All Termux tools have been added as submodules to $REPO_URL!"
